@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "AntiBrainRot",
+  "version": "1.0",
+  "description": "An anti brainrot Chrome extension",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "AntiBrainrotIcon.png"
+    }
+  },
+  "permissions": ["scripting", "webNavigation"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["RejectYoutubeShorts.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "AntiBrainrotIcon.png"
+  }
+}
