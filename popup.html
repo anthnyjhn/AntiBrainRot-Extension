@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Popup</title>
+    <meta charset="UTF-8" />
+    <title>Reject Shorts & Reels</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        width: 200px;
+        padding: 10px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello, Chrome!</h1>
+    <h2>Settings</h2>
+
+    <label>
+      <input type="checkbox" id="toggleInstagram" />
+      Block Instagram Reels
+    </label>
+
+    <label>
+      <input type="checkbox" id="toggleYouTube" />
+      Block YouTube Shorts
+    </label>
+
+    <p id="refresh-msg">Refresh to apply changes</p>
+
     <script src="popup.js"></script>
   </body>
 </html>
