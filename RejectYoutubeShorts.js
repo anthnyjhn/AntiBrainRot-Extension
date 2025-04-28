@@ -1,88 +1,107 @@
 (function () {
-    let lastUrl = location.href;
+    chrome.storage.sync.get(['blockYouTube'], (data) => {
+        if (!data.blockYouTube) {
+            //Blocking YouTube Shorts is disabled
+            return;
+        }
 
-    function isHomepage() {
-        return location.pathname === "/";
-    }
+        let lastUrl = location.href;
 
-    function isSubscriptionsPage() {
-        return location.pathname.startsWith("/feed/subscriptions");
-    }
+        function isHomepage() {
+            return location.pathname === "/";
+        }
 
-    function isResultsPage() {
-        return location.pathname.startsWith("/results") || location.pathname.startsWith("/search");
-    }
+        function isSubscriptionsPage() {
+            return location.pathname.startsWith("/feed/subscriptions");
+        }
 
-    function checkAndRedirect() {
-        if (location.href !== lastUrl) {
-            lastUrl = location.href;
+        function isResultsPage() {
+            return location.pathname.startsWith("/results") || location.pathname.startsWith("/search");
+        }
 
-            if (location.pathname.startsWith("/shorts/")) {
-                console.log("Redirecting away from Shorts...");
-                window.location.replace("https://www.youtube.com/");
+        function checkAndRedirect() {
+            if (location.href !== lastUrl) {
+                lastUrl = location.href;
+
+                if (location.pathname.startsWith("/shorts/")) {
+                    // Redirecting from Shorts back to home 
+                    // NO SHORTS FORM CONTENTS ALLOWED 
+                    window.location.replace("https://www.youtube.com/");
+                }
             }
         }
-    }
 
-    function removeShortsNavButton() {
-        const ShortsNavLink = document.querySelectorAll('#endpoint[title="Shorts"]');
-        ShortsNavLink.forEach(el => {
-            const parent = el.closest('ytd-mini-guide-entry-renderer, ytd-guide-entry-renderer, a');
-            if (parent) {
-                parent.remove();
-                console.log("Removed Shorts button.");
-            } else {
-                el.remove(); // fallback
-                console.log("Removed endpoint with title 'Shorts'.");
-            }
-        });
+        function removeShortsNavButton() {
+            const ShortsNavLink = document.querySelectorAll('#endpoint[title="Shorts"]');
+            ShortsNavLink.forEach(el => {
+                const parent = el.closest('ytd-mini-guide-entry-renderer, ytd-guide-entry-renderer, a');
+                if (parent) {
+                    parent.remove();
+                    // Removed Shorts button
+                } else {
+                    el.remove();
+                    // Removed endpoint with title 'Shorts'
+                }
+            });
 
-        const ExploreNavLink = document.querySelectorAll('#items.style-scope.ytd-guide-section-renderer');
-        ExploreNavLink.forEach(el => {
-            el.remove();
-            console.log("Removed rich/suggested content from homepage.");
-        });
-    }
-
-    function removeReelsContentSections() {
-        const elements = document.querySelectorAll(
-            '#content.style-scope.ytd-rich-section-renderer,#contents.style-scope.ytd-reel-shelf-renderer, #chips.style-scope.ytd-feed-filter-chip-bar-renderer'
-        );
-        elements.forEach(el => {
-            el.remove();
-            console.log("Removed rich/suggested content from homepage.");
-        });
-    }
-
-    function removeSuggestedContents() {
-        if (isHomepage() && !isSubscriptionsPage() && !isResultsPage()) {
-            const elements = document.querySelectorAll('#contents.style-scope.ytd-rich-grid-renderer');
-            elements.forEach(el => {
+            const ExploreNavLink = document.querySelectorAll('#items.style-scope.ytd-guide-section-renderer');
+            ExploreNavLink.forEach(el => {
                 el.remove();
-                console.log("Removed rich section content.");
+                // Removed explore nav content in homepage's navbar.
             });
         }
-    }
+
+        function removeReelsContentSections() {
+            const elements = document.querySelectorAll(
+                '#content.style-scope.ytd-rich-section-renderer,#contents.style-scope.ytd-reel-shelf-renderer, #chips.style-scope.ytd-feed-filter-chip-bar-renderer'
+            );
+            elements.forEach(el => {
+                el.remove();
+                // remove Reels Content Sections
+            });
+
+        }
+
+        function removeReelsContentSectionTitle() {
+            // Select all div elements with id 'title-container' and class 'style-scope ytd-reel-shelf-renderer'
+            const elements = document.querySelectorAll('div#title-container.style-scope.ytd-reel-shelf-renderer');
+
+            elements.forEach(el => {
+                // Check if the element contains a yt-icon
+                const ytIcon = el.querySelector('yt-icon');
+
+                // If yt-icon is found, remove the entire div
+                if (ytIcon) {
+                    console.log("Removing Reels Content Section Title...");
+                    el.remove();
+                }
+            });
+        }
 
 
-    function runAll() {
-        removeSuggestedContents();
-        checkAndRedirect();
-        removeShortsNavButton();
-        removeReelsContentSections();
-    }
+        function removeSuggestedContents() {
+            if (isHomepage() && !isSubscriptionsPage() && !isResultsPage()) {
+                const elements = document.querySelectorAll('#contents.style-scope.ytd-rich-grid-renderer');
+                elements.forEach(el => {
+                    el.remove();
+                    // Removed suggested contents from homepage.
+                });
+            }
+        }
 
-    runAll();
+        function runAll() {
+            removeSuggestedContents();
+            checkAndRedirect();
+            removeShortsNavButton();
+            removeReelsContentSections();
+            removeReelsContentSectionTitle();
+        }
 
-    // Observe DOM changes for URL changes or new elements
-    const observer = new MutationObserver(() => {
         runAll();
-    });
 
-    observer.observe(document, { subtree: true, childList: true });
+        const observer = new MutationObserver(runAll);
+        observer.observe(document, { subtree: true, childList: true });
 
-    // Handle back/forward navigation
-    window.addEventListener("popstate", () => {
-        runAll();
+        window.addEventListener("popstate", runAll);
     });
 })();
