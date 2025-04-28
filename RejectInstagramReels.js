@@ -18,13 +18,26 @@
             }
         }
 
-        function removeReelsAndExploreButtons() {
+        function isInHomepage() {
+            return location.pathname === "/";
+        }
+
+        function isInMessagePage() {
+            return location.pathname === "/direct/inbox/";
+        }
+
+        function isInExplorePage() {
+            return location.pathname === "/explore/";
+        }
+
+        function removeReelsButtons() {
             const navButtons = document.querySelectorAll('a');
 
             navButtons.forEach((button) => {
                 const href = button.getAttribute('href');
-                if (href && (href.startsWith('/reels') || href.startsWith('/explore'))) {
-                    //Removing Reels/Explore button
+                if (href && (href.startsWith('/reels'))) {
+                    //Removing Reels button
+                    console.log("Removing Reels buttons");
                     button.closest('div')?.remove();
                     button.remove();
                 }
@@ -32,6 +45,7 @@
         }
 
         function removeReelsInMessages() {
+            if (!isInMessagePage()) return; // Only run on the messages page
             const reelIcons = document.querySelectorAll('svg[aria-label="Clip"]');
 
             reelIcons.forEach(svg => {
@@ -42,7 +56,7 @@
                     wrapper.innerHTML = '';
 
                     const message = document.createElement('div');
-                    message.textContent = "Reels blocked by AntiBrainRot";
+                    message.textContent = "Content blocked by AntiBrainRot";
                     message.style.padding = '8px';
                     message.style.fontSize = '14px';
                     message.style.color = 'white';
@@ -56,7 +70,56 @@
         }
 
 
+        function removeReelsInExplore() {
+            if (!isInExplorePage()) return;
+
+            const exploreButtons = document.querySelectorAll('svg[aria-label="Reel"]');
+            exploreButtons.forEach(button => {
+                const closestLink = button.closest('a')
+                // Check if the button is in the Explore section
+                if (closestLink) {
+                    let existingOverlay = closestLink.querySelector('.anti-brainrot-overlay');
+
+                    // If no overlay exists, create a new one
+                    if (!existingOverlay) {
+                        // Create a new div to act as the overlay
+                        const overlay = document.createElement('div');
+                        overlay.classList.add('anti-brainrot-overlay'); // Add a class to easily identify the overlay
+                        overlay.style.position = 'absolute';
+                        overlay.style.top = '0';
+                        overlay.style.left = '0';
+                        overlay.style.right = '0';
+                        overlay.style.bottom = '0';
+                        overlay.style.backgroundColor = 'rgb(0, 0, 0)';
+                        overlay.style.color = 'white';
+                        overlay.style.fontSize = 'auto';
+                        overlay.style.fontWeight = 'bold';
+                        overlay.style.display = 'flex';
+                        overlay.style.alignItems = 'center';
+                        overlay.style.justifyContent = 'center';
+                        overlay.style.zIndex = '9999';
+
+                        // Set the text message
+                        overlay.textContent = 'Content blocked by AntiBrainrot';
+
+                        // Ensure the article is positioned relative so the overlay is on top
+                        closestLink.style.position = 'relative';
+
+                        // Append the overlay to the article
+                        closestLink.appendChild(overlay);
+                        closestLink.style.overflow = 'hidden'; // Prevent overflow
+
+
+                        //Overlayed a Reel with the 'AntiBrainrot' message
+                    }
+                }
+            });
+
+        }
+
         function removeReelsInFeed() {
+            if (!isInHomepage()) return;
+
             // Select all buttons with the aria-label "Toggle audio"
             const audioButtons = document.querySelectorAll('button[aria-label="Toggle audio"]');
 
@@ -91,7 +154,7 @@
                         overlay.style.borderRadius = '8px';
 
                         // Set the text message
-                        overlay.textContent = 'Reel blocked by AntiBrainrot';
+                        overlay.textContent = 'Content blocked by AntiBrainrot';
 
                         // Ensure the article is positioned relative so the overlay is on top
                         article.style.position = 'relative';
@@ -107,13 +170,12 @@
             });
         }
 
-
-
         function runAll() {
             checkAndRedirect();
-            removeReelsAndExploreButtons();
+            removeReelsButtons();
             removeReelsInMessages();
-            removeReelsInFeed()
+            removeReelsInFeed();
+            removeReelsInExplore();
         }
 
         runAll();
