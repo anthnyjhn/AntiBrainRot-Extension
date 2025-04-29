@@ -1,4 +1,6 @@
 (function () {
+    if (location.hostname !== "www.instagram.com") return;
+
     chrome.storage.sync.get(['blockInstagram'], (data) => {
         if (!data.blockInstagram) {
             //Blocking Instagram Reels is disabled

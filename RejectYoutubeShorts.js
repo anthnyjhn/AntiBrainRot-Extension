@@ -1,4 +1,6 @@
 (function () {
+    if (location.hostname !== "www.youtube.com") return;
+
     chrome.storage.sync.get(['blockYouTube'], (data) => {
         if (!data.blockYouTube) {
             //Blocking YouTube Shorts is disabled
