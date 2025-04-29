@@ -1,7 +1,5 @@
 (function () {
-
     chrome.storage.sync.get(['blockFacebook'], (data) => {
-        console.log((location.hostname !== "www.facebook.com"));
 
         if (!data.blockFacebook) {
             return;

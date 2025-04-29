@@ -1,9 +1,9 @@
 // Load saved settings
 document.addEventListener('DOMContentLoaded', () => {
-    chrome.storage.sync.get(['blockInstagram', 'blockYouTube'], (data) => {
-        document.getElementById('toggleInstagram').checked = data.blockInstagram ?? true;
-        document.getElementById('toggleYouTube').checked = data.blockYouTube ?? true;
-        document.getElementById('toggleFacebook').checked = data.blockFacebook ?? true;
+    chrome.storage.sync.get(['blockInstagram', 'blockYouTube', 'blockFacebook'], (data) => {
+        document.getElementById('toggleInstagram').checked = data.blockInstagram ?? false;
+        document.getElementById('toggleYouTube').checked = data.blockYouTube ?? false;
+        document.getElementById('toggleFacebook').checked = data.blockFacebook ?? false;
     });
 
     refreshMessage(false);
