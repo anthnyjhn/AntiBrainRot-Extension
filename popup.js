@@ -1,9 +1,11 @@
 // Load saved settings
 document.addEventListener('DOMContentLoaded', () => {
-    chrome.storage.sync.get(['blockInstagram', 'blockYouTube', 'blockFacebook'], (data) => {
+    chrome.storage.sync.get(['blockInstagram', 'blockYouTube', 'blockFacebook', 'blockTiktok'], (data) => {
         document.getElementById('toggleInstagram').checked = data.blockInstagram ?? false;
         document.getElementById('toggleYouTube').checked = data.blockYouTube ?? false;
         document.getElementById('toggleFacebook').checked = data.blockFacebook ?? false;
+        document.getElementById('toggleTiktok').checked = data.blockTiktok ?? false;
+
     });
 
     refreshMessage(false);
@@ -22,6 +24,11 @@ document.getElementById('toggleYouTube').addEventListener('change', (e) => {
 
 document.getElementById('toggleFacebook').addEventListener('change', (e) => {
     chrome.storage.sync.set({ blockFacebook: e.target.checked });
+    refreshMessage(true);
+});
+
+document.getElementById('toggleTiktok').addEventListener('change', (e) => {
+    chrome.storage.sync.set({ blockTiktok: e.target.checked });
     refreshMessage(true);
 });
 

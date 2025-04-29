@@ -17,12 +17,14 @@
       "matches": [
         "*://www.youtube.com/*",
         "*://www.instagram.com/*",
-        "*://www.facebook.com/*"
+        "*://www.facebook.com/*",
+        "*://www.tiktok.com/*"
       ],
       "js": [
         "RejectYoutubeShorts.js",
         "RejectInstagramReels.js",
-        "RejectFacebookReels.js"
+        "RejectFacebookReels.js",
+        "RejectTiktok.js"
       ],
       "run_at": "document_idle"
     }
