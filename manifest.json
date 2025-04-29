@@ -14,8 +14,16 @@
   "permissions": ["scripting", "webNavigation", "storage", "tabs"],
   "content_scripts": [
     {
-      "matches": ["*://www.youtube.com/*", "*://www.instagram.com/*"],
-      "js": ["RejectYoutubeShorts.js", "RejectInstagramReels.js"],
+      "matches": [
+        "*://www.youtube.com/*",
+        "*://www.instagram.com/*",
+        "*://www.facebook.com/*"
+      ],
+      "js": [
+        "RejectYoutubeShorts.js",
+        "RejectInstagramReels.js",
+        "RejectFacebookReels.js"
+      ],
       "run_at": "document_idle"
     }
   ],
