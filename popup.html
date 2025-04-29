@@ -5,38 +5,76 @@
     <title>Reject Shorts & Reels</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        width: 200px;
-        padding: 10px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+        width: 260px;
+        padding: 1rem;
+        margin: 0;
+        color: #333;
       }
+
+      h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: #1a1a1a;
+        text-align: center;
+      }
+
+      .setting {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        padding: 0.6rem 0.8rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 0.6rem;
+        transition: background 0.3s ease;
+      }
+
+      .setting:hover {
+        background: #f0f0f0;
+      }
+
       label {
-        display: block;
-        margin-bottom: 10px;
+        font-size: 0.95rem;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.2);
+        accent-color: #0078d7;
+      }
+
+      #refresh-msg {
+        font-size: 0.85rem;
+        color: #777;
+        text-align: center;
+        margin-top: 1rem;
       }
     </style>
   </head>
   <body>
-    <h2>Settings</h2>
+    <h2>ANTI BRAINROT</h2>
 
-    <label>
+    <div class="setting">
+      <label for="toggleInstagram">Block Instagram Reels</label>
       <input type="checkbox" id="toggleInstagram" />
-      Block Instagram Reels
-    </label>
+    </div>
 
-    <label>
+    <div class="setting">
+      <label for="toggleYouTube">Block YouTube Shorts</label>
       <input type="checkbox" id="toggleYouTube" />
-      Block YouTube Shorts
-    </label>
+    </div>
 
-    <label>
+    <div class="setting">
+      <label for="toggleFacebook">Block Facebook Reels</label>
       <input type="checkbox" id="toggleFacebook" />
-      Block Facebook Reels
-    </label>
+    </div>
 
-    <label>
+    <div class="setting">
+      <label for="toggleTiktok">Block TikTok</label>
       <input type="checkbox" id="toggleTiktok" />
-      Block TIKTOK
-    </label>
+    </div>
 
     <p id="refresh-msg">Refresh to apply changes</p>
 
