@@ -23,7 +23,7 @@
         }
 
         function isInMessagePage() {
-            return location.pathname === "/direct/inbox/";
+            return location.pathname.startsWith("/direct/");
         }
 
         function isInExplorePage() {
@@ -36,7 +36,6 @@
             navButtons.forEach((button) => {
                 const href = button.getAttribute('href');
                 if (href && (href.startsWith('/reels'))) {
-                    //Removing Reels button
                     console.log("Removing Reels buttons");
                     button.closest('div')?.remove();
                     button.remove();
@@ -67,6 +66,8 @@
                     wrapper.appendChild(message);
                 }
             });
+
+
         }
 
 
@@ -172,8 +173,8 @@
 
         function runAll() {
             checkAndRedirect();
-            removeReelsButtons();
             removeReelsInMessages();
+            removeReelsButtons();
             removeReelsInFeed();
             removeReelsInExplore();
         }
