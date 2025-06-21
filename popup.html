@@ -6,17 +6,26 @@
     <style>
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f9f9f9;
-        width: 260px;
-        padding: 1rem;
+        background-color: #2c2c2c;
+        width: 300px;
+        padding: 0.5rem 1rem;
         margin: 0;
-        color: #333;
+        color: #f5f5f5;
+      }
+
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
       }
 
       h2 {
         font-size: 1.2rem;
         margin-bottom: 1rem;
-        color: #1a1a1a;
+        color: #f5f5f5;
         text-align: center;
       }
 
@@ -24,7 +33,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #fff;
+        background: #383838;
         padding: 0.6rem 0.8rem;
         border-radius: 8px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -32,8 +41,16 @@
         transition: background 0.3s ease;
       }
 
+      .control-div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+
       .setting:hover {
-        background: #f0f0f0;
+        background: #3f3f3f;
       }
 
       label {
@@ -42,7 +59,22 @@
 
       input[type="checkbox"] {
         transform: scale(1.2);
-        accent-color: #0078d7;
+        accent-color: #0081eb;
+      }
+
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        margin-bottom: 1rem;
+        width: 100%;
+      }
+
+      #app-icon {
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+        margin-right: 8px;
       }
 
       #refresh-msg {
@@ -54,28 +86,34 @@
     </style>
   </head>
   <body>
-    <h2>ANTI BRAINROT</h2>
+    <div class="main-container">
+      <div class="title">
+        <img src="./AntiBrainrotIcon.png" alt="" id="app-icon" />
+        <h2>ANTI BRAINROT</h2>
+      </div>
 
-    <div class="setting">
-      <label for="toggleInstagram">Block Instagram Reels</label>
-      <input type="checkbox" id="toggleInstagram" />
+      <div class="control-div">
+        <div class="setting">
+          <label for="toggleInstagram">Block Instagram Reels</label>
+          <input type="checkbox" id="toggleInstagram" />
+        </div>
+
+        <div class="setting">
+          <label for="toggleYouTube">Block YouTube Shorts</label>
+          <input type="checkbox" id="toggleYouTube" />
+        </div>
+
+        <div class="setting">
+          <label for="toggleFacebook">Block Facebook Reels</label>
+          <input type="checkbox" id="toggleFacebook" />
+        </div>
+
+        <div class="setting">
+          <label for="toggleTiktok">Block TikTok</label>
+          <input type="checkbox" id="toggleTiktok" />
+        </div>
+      </div>
     </div>
-
-    <div class="setting">
-      <label for="toggleYouTube">Block YouTube Shorts</label>
-      <input type="checkbox" id="toggleYouTube" />
-    </div>
-
-    <div class="setting">
-      <label for="toggleFacebook">Block Facebook Reels</label>
-      <input type="checkbox" id="toggleFacebook" />
-    </div>
-
-    <div class="setting">
-      <label for="toggleTiktok">Block TikTok</label>
-      <input type="checkbox" id="toggleTiktok" />
-    </div>
-
     <p id="refresh-msg">Refresh to apply changes</p>
 
     <script src="popup.js"></script>
