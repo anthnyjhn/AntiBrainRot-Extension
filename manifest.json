@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Anti-Brainrot",
-  "version": "1.0.1",
-  "description": "An anti brainrot chrome extension",
+  "name": "Anti-Brainrot - block addictive contents",
+  "version": "1.0.0",
+  "description": "A Chrome extension to block addictive contents and help you stay focused.",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

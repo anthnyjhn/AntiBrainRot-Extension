@@ -4,9 +4,9 @@ An Anti-Brainrot Chrome Extension.
 
 ## Our Goal
 
-Help people to consume media better by blocking algorithm-suggested contents.  
+Help you improve your digital media consumption by blocking suggested media content that is engineered to keep you consuming more content.
 
-## Target Platforms
+## Supported Platforms
 
 - YouTube
 - Instagram
